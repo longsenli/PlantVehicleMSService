@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tnpy.plantvehiclems.mapper.mysql.TbUserMapper">
+  <resultMap id="BaseResultMap" type="com.tnpy.plantvehiclems.model.mysql.TbUser">
+    <id column="userID" jdbcType="VARCHAR" property="userid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="roleID" jdbcType="VARCHAR" property="roleid" />
+    <result column="roleName"  property="roleName" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="dutyID" jdbcType="VARCHAR" property="dutyid" />
+    <result column="workplace" jdbcType="VARCHAR" property="workplace" />
+    <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="createuser" jdbcType="VARCHAR" property="createuser" />
+    <result column="updatedate" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="updateuser" jdbcType="VARCHAR" property="updateuser" />
+    <result column="deletedate" jdbcType="TIMESTAMP" property="deletedate" />
+    <result column="deleteuser" jdbcType="VARCHAR" property="deleteuser" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobilephone" jdbcType="VARCHAR" property="mobilephone" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="organID" jdbcType="VARCHAR" property="organid" />
+    <result column="industrialplant_id" jdbcType="VARCHAR" property="industrialplant_id" />
+    <result column="industrialplant_name" jdbcType="VARCHAR" property="industrialplant_name" />
+    <result column="productionline_id" jdbcType="VARCHAR" property="productionline_id" />
+    <result column="productionline_name" jdbcType="VARCHAR" property="productionline_name" />
+    <result column="productionprocess_id" jdbcType="VARCHAR" property="productionprocess_id" />
+    <result column="productionprocess_name" jdbcType="VARCHAR" property="productionprocess_name" />
+    <result column="ext7" jdbcType="VARCHAR" property="ext7" />
+    <result column="ext8" jdbcType="VARCHAR" property="ext8" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    userID, name, password, roleID, sex, birthday, dutyID, workplace, createdate, createuser, 
+    updatedate, updateuser, deletedate, deleteuser, state, email, mobilephone, telephone, 
+    organID, industrialplant_id, industrialplant_name, productionline_id, productionline_name, productionprocess_id, productionprocess_name, ext7, ext8
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user
+    where userID = #{userid,jdbcType=VARCHAR}
+  </select>
+  <select id="userList" resultMap="BaseResultMap">
+  select u.userID, u.name, u.password, u.roleID, u.sex, u.birthday, u.dutyID, u.workplace, u.createdate, u.createuser, 
+    u.updatedate, u.updateuser, u.deletedate, u.deleteuser, u.state, u.email, u.mobilephone, u.telephone, 
+    u.organID, u.industrialplant_id, u.industrialplant_name, u.productionline_id, u.productionline_name, u.productionprocess_id, u.productionprocess_name, u.ext7, u.ext8,(select r.role_name from tb_role r where r.role_id=u.roleID) as roleName from tb_user u
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_user
+    where userID = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tnpy.plantvehiclems.model.mysql.TbUser">
+    insert into tb_user (userID, name, password, 
+      roleID, sex, birthday, 
+      dutyID, workplace, createdate, 
+      createuser, updatedate, updateuser, 
+      deletedate, deleteuser, 
+      email, mobilephone, telephone, 
+      organID, industrialplant_id, industrialplant_name, 
+      productionline_id, productionline_name, productionprocess_id, productionprocess_name, 
+      ext7, ext8)
+    values (#{userid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{roleid,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
+      #{dutyid,jdbcType=VARCHAR}, #{workplace,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{createuser,jdbcType=VARCHAR}, #{updatedate,jdbcType=TIMESTAMP}, #{updateuser,jdbcType=VARCHAR}, 
+      #{deletedate,jdbcType=TIMESTAMP}, #{deleteuser,jdbcType=VARCHAR},
+      #{email,jdbcType=VARCHAR}, #{mobilephone,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{organid,jdbcType=VARCHAR}, #{industrialplant_id,jdbcType=VARCHAR}, #{industrialplant_name,jdbcType=VARCHAR}, 
+      #{productionline_id,jdbcType=VARCHAR}, #{productionline_name,jdbcType=VARCHAR}, #{productionprocess_id,jdbcType=VARCHAR}, #{productionprocess_name,jdbcType=VARCHAR}, 
+      #{ext7,jdbcType=VARCHAR}, #{ext8,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tnpy.plantvehiclems.model.mysql.TbUser">
+    insert into tb_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="roleid != null">
+        roleID,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="dutyid != null">
+        dutyID,
+      </if>
+      <if test="workplace != null">
+        workplace,
+      </if>
+      <if test="createdate != null">
+        createdate,
+      </if>
+      <if test="createuser != null">
+        createuser,
+      </if>
+      <if test="updatedate != null">
+        updatedate,
+      </if>
+      <if test="updateuser != null">
+        updateuser,
+      </if>
+      <if test="deletedate != null">
+        deletedate,
+      </if>
+      <if test="deleteuser != null">
+        deleteuser,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="mobilephone != null">
+        mobilephone,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="organid != null">
+        organID,
+      </if>
+      <if test="industrialplant_id != null">
+        industrialplant_id,
+      </if>
+      <if test="industrialplant_name != null">
+        industrialplant_name,
+      </if>
+      <if test="productionline_id != null">
+        productionline_id,
+      </if>
+      <if test="productionline_name != null">
+        productionline_name,
+      </if>
+      <if test="productionprocess_id != null">
+        productionprocess_id,
+      </if>
+      <if test="productionprocess_name != null">
+        productionprocess_name,
+      </if>
+      <if test="ext7 != null">
+        ext7,
+      </if>
+      <if test="ext8 != null">
+        ext8,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="dutyid != null">
+        #{dutyid,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null">
+        #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuser != null">
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null">
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="deletedate != null">
+        #{deletedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteuser != null">
+        #{deleteuser,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null">
+        #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="organid != null">
+        #{organid,jdbcType=VARCHAR},
+      </if>
+      <if test="industrialplant_id != null">
+        #{industrialplant_id,jdbcType=VARCHAR},
+      </if>
+      <if test="industrialplant_name != null">
+        #{industrialplant_name,jdbcType=VARCHAR},
+      </if>
+      <if test="productionline_id != null">
+        #{productionline_id,jdbcType=VARCHAR},
+      </if>
+      <if test="productionline_name != null">
+        #{productionline_name,jdbcType=VARCHAR},
+      </if>
+      <if test="productionprocess_id != null">
+        #{productionprocess_id,jdbcType=VARCHAR},
+      </if>
+      <if test="productionprocess_name != null">
+        #{productionprocess_name,jdbcType=VARCHAR},
+      </if>
+      <if test="ext7 != null">
+        #{ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="ext8 != null">
+        #{ext8,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tnpy.plantvehiclems.model.mysql.TbUser">
+    update tb_user
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        roleID = #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="dutyid != null">
+        dutyID = #{dutyid,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null">
+        workplace = #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createdate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuser != null">
+        createuser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null">
+        updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null">
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="deletedate != null">
+        deletedate = #{deletedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteuser != null">
+        deleteuser = #{deleteuser,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null">
+        mobilephone = #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="organid != null">
+        organID = #{organid,jdbcType=VARCHAR},
+      </if>
+      <if test="industrialplant_id != null">
+        industrialplant_id = #{industrialplant_id,jdbcType=VARCHAR},
+      </if>
+      <if test="industrialplant_name != null">
+        industrialplant_name = #{industrialplant_name,jdbcType=VARCHAR},
+      </if>
+      <if test="productionline_id != null">
+        productionline_id = #{productionline_id,jdbcType=VARCHAR},
+      </if>
+      <if test="productionline_name != null">
+        productionline_name = #{productionline_name,jdbcType=VARCHAR},
+      </if>
+      <if test="productionprocess_id != null">
+        productionprocess_id = #{productionprocess_id,jdbcType=VARCHAR},
+      </if>
+      <if test="productionprocess_name != null">
+        productionprocess_name = #{productionprocess_name,jdbcType=VARCHAR},
+      </if>
+      <if test="ext7 != null">
+        ext7 = #{ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="ext8 != null">
+        ext8 = #{ext8,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userID = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tnpy.plantvehiclems.model.mysql.TbUser">
+    update tb_user
+    set 
+      name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      roleID = #{roleid,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      dutyID = #{dutyid,jdbcType=VARCHAR},
+      workplace = #{workplace,jdbcType=VARCHAR},
+      createdate = #{createdate,jdbcType=TIMESTAMP},
+      createuser = #{createuser,jdbcType=VARCHAR},
+      updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      updateuser = #{updateuser,jdbcType=VARCHAR},
+      deletedate = #{deletedate,jdbcType=TIMESTAMP},
+      deleteuser = #{deleteuser,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      mobilephone = #{mobilephone,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      organID = #{organid,jdbcType=VARCHAR},
+      industrialplant_id = #{industrialplant_id,jdbcType=VARCHAR},
+      industrialplant_name = #{industrialplant_name,jdbcType=VARCHAR},
+      productionline_id = #{productionline_id,jdbcType=VARCHAR},
+      productionline_name = #{productionline_name,jdbcType=VARCHAR},
+      productionprocess_id = #{productionprocess_id,jdbcType=VARCHAR},
+      productionprocess_name = #{productionprocess_name,jdbcType=VARCHAR},
+      ext7 = #{ext7,jdbcType=VARCHAR},
+      ext8 = #{ext8,jdbcType=VARCHAR}
+    where userID = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>
