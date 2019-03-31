@@ -2,15 +2,14 @@ package com.tnpy.plantvehiclems.model.mysql;
 
 import java.util.Date;
 
-public class TbUser {
+public class TbRole {
+
 
 	private String id;
 
 	private String name;
 
-	private String password;
-
-	private String roleid;
+	private String roleinfo;
 
 	private String status;
 
@@ -30,20 +29,12 @@ public class TbUser {
 		this.name = name == null ? null : name.trim();
 	}
 
-	public String getPassword() {
-		return password;
+	public String getRoleinfo() {
+		return roleinfo;
 	}
 
-	public void setPassword(String password) {
-		this.password = password == null ? null : password.trim();
-	}
-
-	public String getRoleid() {
-		return roleid;
-	}
-
-	public void setRoleid(String roleid) {
-		this.roleid = roleid == null ? null : roleid.trim();
+	public void setRoleinfo(String roleinfo) {
+		this.roleinfo = roleinfo == null ? null : roleinfo.trim();
 	}
 
 	public String getStatus() {
@@ -53,5 +44,6 @@ public class TbUser {
 	public void setStatus(String status) {
 		this.status = status == null ? null : status.trim();
 	}
+
 
 }

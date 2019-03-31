@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tnpy.plantvehiclems.mapper.mysql.TbUserMapper">
-  <resultMap id="BaseResultMap" type="com.tnpy.plantvehiclems.model.mysql.TbUser">
+<mapper namespace="com.tnpy.plantvehiclems.mapper.mysql.TbRoleMapper">
+  <resultMap id="BaseResultMap" type="com.tnpy.plantvehiclems.model.mysql.TbRole">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="roleID" jdbcType="VARCHAR" property="roleid" />
+    <result column="roleInfo" jdbcType="VARCHAR" property="roleinfo" />
     <result column="status" jdbcType="VARCHAR" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, password, roleID, status
+    id, name, roleInfo, status
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_user
+    from tb_role
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from tb_user
+    delete from tb_role
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.tnpy.plantvehiclems.model.mysql.TbUser">
-    insert into tb_user (id, name, 
-      password, roleID, status
-      )
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.tnpy.plantvehiclems.model.mysql.TbRole">
+    insert into tb_role (id, name, roleInfo, 
+      status)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{roleinfo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tnpy.plantvehiclems.model.mysql.TbUser">
-    insert into tb_user
+  <insert id="insertSelective" parameterType="com.tnpy.plantvehiclems.model.mysql.TbRole">
+    insert into tb_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -38,12 +35,8 @@
       <if test="name != null">
         name,
       </if>
-     
-      <if test="password != null">
-        password,
-      </if>
-      <if test="roleid != null">
-        roleID,
+      <if test="roleinfo != null">
+        roleInfo,
       </if>
       <if test="status != null">
         status,
@@ -56,30 +49,22 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="roleid != null">
-        #{roleid,jdbcType=VARCHAR},
+      <if test="roleinfo != null">
+        #{roleinfo,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tnpy.plantvehiclems.model.mysql.TbUser">
-    update tb_user
+  <update id="updateByPrimaryKeySelective" parameterType="com.tnpy.plantvehiclems.model.mysql.TbRole">
+    update tb_role
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-     
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="roleid != null">
-        roleID = #{roleid,jdbcType=VARCHAR},
+      <if test="roleinfo != null">
+        roleInfo = #{roleinfo,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=VARCHAR},
@@ -87,13 +72,12 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tnpy.plantvehiclems.model.mysql.TbUser">
-    update tb_user
+  <update id="updateByPrimaryKey" parameterType="com.tnpy.plantvehiclems.model.mysql.TbRole">
+    update tb_role
     set name = #{name,jdbcType=VARCHAR},
-     
-      password = #{password,jdbcType=VARCHAR},
-      roleID = #{roleid,jdbcType=VARCHAR},
+      roleInfo = #{roleinfo,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
 </mapper>
