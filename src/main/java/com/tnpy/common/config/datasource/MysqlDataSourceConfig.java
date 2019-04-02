@@ -24,7 +24,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
  */
 @Configuration
 //@MapperScan(basePackages = "com.spring.boot.master.mapper",sqlSessionTemplateRef = "masterSqlSessionTemplate")
-@MapperScan(basePackages = MysqlDataSourceConfig.MAPPER_LOCATION,sqlSessionTemplateRef = "masterSqlSessionTemplate")
+@MapperScan(basePackages = MysqlDataSourceConfig.MAPPER_LOCATION,sqlSessionTemplateRef = "masterSqlSessionTemplateCLGL")
 public class MysqlDataSourceConfig {
 	
     static final String MAPPER_LOCATION = "com.tnpy.plantvehiclems.mapper.mysql";
@@ -34,7 +34,7 @@ public class MysqlDataSourceConfig {
 	 * 创建数据源
 	 *@return DataSource
 	 */
-	@Bean(name = "masterDataSource")
+	@Bean(name = "masterDataSourceCLGL")
 	@ConfigurationProperties(prefix = "spring.datasource.master")
 	@Primary
 	public DataSource masterDataSource() {
@@ -47,9 +47,9 @@ public class MysqlDataSourceConfig {
 	 *@throws Exception
 	 *@return SqlSessionFactory
 	 */
-	@Bean(name = "masterSqlSessionFactory")
+	@Bean(name = "masterSqlSessionFactoryCLGL")
 	@Primary
-	public SqlSessionFactory masterSqlSessionFactory(@Qualifier("masterDataSource") DataSource dataSource) throws Exception {
+	public SqlSessionFactory masterSqlSessionFactory(@Qualifier("masterDataSourceCLGL") DataSource dataSource) throws Exception {
 		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
 		bean.setDataSource(dataSource);
 		bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MysqlDataSourceConfig.MAPPING_LOCATION));
@@ -61,9 +61,9 @@ public class MysqlDataSourceConfig {
 	 *@param dataSource
 	 *@return DataSourceTransactionManager
 	 */
-	@Bean(name = "masterTransactionManager")
+	@Bean(name = "masterTransactionManagerCLGL")
 	@Primary
-	public DataSourceTransactionManager masterDataSourceTransactionManager(@Qualifier("masterDataSource") DataSource dataSource) {
+	public DataSourceTransactionManager masterDataSourceTransactionManager(@Qualifier("masterDataSourceCLGL") DataSource dataSource) {
 		return new DataSourceTransactionManager(dataSource);
 	}
 	
@@ -72,9 +72,9 @@ public class MysqlDataSourceConfig {
 	 *@param sqlSessionFactory  
 	 *@return SqlSessionTemplate
 	 */
-	@Bean(name = "masterSqlSessionTemplate")
+	@Bean(name = "masterSqlSessionTemplateCLGL")
 	@Primary
-	public SqlSessionTemplate masterSqlSessionTemplate(@Qualifier("masterSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+	public SqlSessionTemplate masterSqlSessionTemplate(@Qualifier("masterSqlSessionFactoryCLGL") SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
 	

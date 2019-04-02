@@ -3,9 +3,9 @@
 <Configuration status="WARN" monitorInterval="30">
     <Properties>
         <!-- 配置日志文件输出目录 ${sys:user.home} -->
-        <Property name="LOG_HOME">D:/logs/demo</Property>
-        <property name="ERROR_LOG_FILE_NAME">D:/logs/demo/error</property>
-        <property name="WARN_LOG_FILE_NAME">D:/logs/demo/warn</property>
+        <Property name="LOG_HOME">D:/logs/clgl</Property>
+        <property name="ERROR_LOG_FILE_NAME">D:/logs/clgl/error</property>
+        <property name="WARN_LOG_FILE_NAME">D:/logs/clgl/warn</property>
         <property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t-%L] %-5level %logger{36} - %msg%n</property>
     </Properties>
     <Appenders>
