@@ -27,9 +27,9 @@ public class VehicleManageServiceImpl implements  IVehicleManageService{
 	}
 
 	@Override
-	public List<TbCarInfo> listAll() {
+	public List<TbCarInfo> listAll(String filter) {
 		// TODO Auto-generated method stub
-		List<TbCarInfo> lstbcar = tbCarInfoMapper.listAll();
+		List<TbCarInfo> lstbcar = tbCarInfoMapper.listAll(filter);
 		return lstbcar;
 	}
 

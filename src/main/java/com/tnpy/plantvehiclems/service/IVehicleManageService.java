@@ -9,7 +9,7 @@ public interface IVehicleManageService {
 	 
 	TbCarInfo selectByPrimaryKey(String id);
 	
-	List<TbCarInfo> listAll();
+	List<TbCarInfo> listAll(String filter);
 	
 	int deleteByPrimaryKey(String userid);
 	

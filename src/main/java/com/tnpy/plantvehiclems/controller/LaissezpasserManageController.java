@@ -24,11 +24,17 @@ public class LaissezpasserManageController {
 	@Resource
 	ILaissezpassersManageService laissezpassersManageService;
 	
-	@RequestMapping(value = "/laissezpasserRegister")
+	@RequestMapping(value = "/laissezpasserregister")
 	public TNPYResponse laissezpasserRegister(TbLaissezPasserInfo tbLaissezPasserInfo ) {
 		TNPYResponse response = new TNPYResponse();
 		try
 		{
+			if(!"0".equals(laissezpassersManageService.selectByCarLicenceTime(tbLaissezPasserInfo.getCarlicence())) )
+			{
+				response.setStatus(StatusEnum.ResponseStatus.Success.getIndex());
+				response.setMessage("该车辆有可用通行证 , 如需修改请联系管理员");
+				return  response;
+			}
 			TbLaissezPasserInfo existstbLaissezPasserInfo = laissezpassersManageService.selectByPrimaryKey(tbLaissezPasserInfo.getId());
 			if(existstbLaissezPasserInfo == null) {
 				tbLaissezPasserInfo.setId(UUID.randomUUID().toString().replace("-", ""));
@@ -78,11 +84,16 @@ public class LaissezpasserManageController {
 	}
 	
 	@RequestMapping(value = "/listLaissezpassers")
-	public TNPYResponse listLaissezpassers() {
+	public TNPYResponse listLaissezpassers(String columnName,String selectValue){
 		TNPYResponse response = new TNPYResponse();
 		try
 		{
-			List<TbLaissezPasserInfo> rs = laissezpassersManageService.listAll();
+			String filter = "";
+			if(!"-1".equals(columnName) )
+			{
+				filter = " and " + columnName + " like '%" + selectValue + "%' ";
+			}
+			List<TbLaissezPasserInfo> rs = laissezpassersManageService.listAll(filter);
 			response.setData(JSONObject.toJSONString(rs, SerializerFeature.WriteMapNullValue).toString());
 			response.setStatus(StatusEnum.ResponseStatus.Success.getIndex());
 			response.setMessage("返回查询结果");

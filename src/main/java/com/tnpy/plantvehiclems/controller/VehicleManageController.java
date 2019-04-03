@@ -74,11 +74,16 @@ public class VehicleManageController {
 	}
 	
 	@RequestMapping(value = "/listVehicles")
-	public TNPYResponse listVehicles() {
+	public TNPYResponse listVehicles(String columnName,String selectValue) {
 		TNPYResponse response = new TNPYResponse();
 		try
 		{
-			List<TbCarInfo> existstbcar = vehicleRegisterService.listAll();
+			String filter = "";
+			if(!"-1".equals(columnName) )
+			{
+				filter = " and " + columnName + " like '%" + selectValue + "%' ";
+			}
+			List<TbCarInfo> existstbcar = vehicleRegisterService.listAll(filter);
 			response.setData(JSONObject.toJSONString(existstbcar, SerializerFeature.WriteMapNullValue).toString());
 			response.setStatus(StatusEnum.ResponseStatus.Success.getIndex());
 			response.setMessage("返回查询结果");

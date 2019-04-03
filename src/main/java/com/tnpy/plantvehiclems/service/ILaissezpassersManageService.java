@@ -9,7 +9,9 @@ public interface ILaissezpassersManageService {
 	 
 	TbLaissezPasserInfo selectByPrimaryKey(String id);
 	
-	List<TbLaissezPasserInfo> listAll();
+	List<TbLaissezPasserInfo> listAll(String filter);
+
+	String selectByCarLicenceTime(String carLicence);
 	
 	int deleteByPrimaryKey(String id);
 	

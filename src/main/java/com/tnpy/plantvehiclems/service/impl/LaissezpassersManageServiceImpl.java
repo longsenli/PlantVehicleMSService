@@ -27,11 +27,16 @@ public class LaissezpassersManageServiceImpl implements  ILaissezpassersManageSe
 	}
 
 	@Override
-	public List<TbLaissezPasserInfo> listAll() {
+	public List<TbLaissezPasserInfo> listAll(String filter) {
 		// TODO Auto-generated method stub
-		return tbLaissezPasserInfoMapper.listAll();
+		return tbLaissezPasserInfoMapper.listAll(filter);
 	}
-
+	@Override
+	public String selectByCarLicenceTime(String carLicence)
+	{
+		// TODO Auto-generated method stub
+		return tbLaissezPasserInfoMapper.selectByCarLicenceTime(carLicence);
+	}
 	@Override
 	public int deleteByPrimaryKey(String id) {
 		// TODO Auto-generated method stub
