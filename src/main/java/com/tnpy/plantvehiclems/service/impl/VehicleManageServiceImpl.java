@@ -36,7 +36,7 @@ public class VehicleManageServiceImpl implements  IVehicleManageService{
 	@Override
 	public int deleteByPrimaryKey(String id) {
 		// TODO Auto-generated method stub
-		return tbCarInfoMapper.deleteByPrimaryKey(id);
+		return tbCarInfoMapper.deleteByChangeStatus(id);
 	}
 
 	@Override

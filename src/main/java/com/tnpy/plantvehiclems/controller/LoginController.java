@@ -75,7 +75,7 @@ public class LoginController {
 		}
 
 		response.setStatus(StatusEnum.ResponseStatus.Success.getIndex());
-		response.setMessage("登陆成功");
+		response.setMessage(myUser.getId() + " ### " + myUser.getName());
 		return response;
 	}
 }

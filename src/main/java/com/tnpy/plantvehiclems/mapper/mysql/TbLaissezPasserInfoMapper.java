@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Select;
 
 import com.tnpy.plantvehiclems.model.mysql.TbLaissezPasserInfo;
+import org.apache.ibatis.annotations.Update;
 
 public interface TbLaissezPasserInfoMapper {
     int deleteByPrimaryKey(String id);
@@ -19,6 +20,9 @@ public interface TbLaissezPasserInfoMapper {
 
     int updateByPrimaryKey(TbLaissezPasserInfo record);
     
-    @Select("select * from tb_laissezpasserinfo")
+    @Select("select * from tb_laissezpasserinfo where status != '-1'")
     List<TbLaissezPasserInfo> listAll();
+
+    @Update("update tb_laissezpasserinfo set status = '-1' where id = #{id}")
+    int deleteByChangeStatus(String id);
 }

@@ -35,7 +35,7 @@ public class LaissezpassersManageServiceImpl implements  ILaissezpassersManageSe
 	@Override
 	public int deleteByPrimaryKey(String id) {
 		// TODO Auto-generated method stub
-		return tbLaissezPasserInfoMapper.deleteByPrimaryKey(id);
+		return tbLaissezPasserInfoMapper.deleteByChangeStatus(id);
 	}
 
 	@Override
