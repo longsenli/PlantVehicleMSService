@@ -11,10 +11,11 @@
     <result column="emergencyPhone" jdbcType="VARCHAR" property="emergencyphone" />
     <result column="registrationTime" property="registrationtime" />
     <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Base_Column_List">
     carLicence, carType, carColor, driverName, driverPhone, emergencyContact, emergencyPhone, 
-    registrationTime, status
+    registrationTime, status,remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -29,11 +30,11 @@
   <insert id="insert" parameterType="com.tnpy.plantvehiclems.model.mysql.TbCarInfo">
     insert into tb_carinfo (carLicence, carType, carColor, 
       driverName, driverPhone, emergencyContact, 
-      emergencyPhone, registrationTime, status
+      emergencyPhone, registrationTime, status,remark
       )
     values (#{carlicence,jdbcType=VARCHAR}, #{cartype,jdbcType=VARCHAR}, #{carcolor,jdbcType=VARCHAR}, 
       #{drivername,jdbcType=VARCHAR}, #{driverphone,jdbcType=VARCHAR}, #{emergencycontact,jdbcType=VARCHAR}, 
-      #{emergencyphone,jdbcType=VARCHAR}, #{registrationtime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}
+      #{emergencyphone,jdbcType=VARCHAR}, #{registrationtime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tnpy.plantvehiclems.model.mysql.TbCarInfo">
@@ -66,6 +67,9 @@
       <if test="status != null">
         status,
       </if>
+      <if test="remark != null">
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="carlicence != null">
@@ -94,6 +98,9 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -124,6 +131,9 @@
       <if test="status != null">
         status = #{status,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
     where carLicence = #{carlicence,jdbcType=VARCHAR}
   </update>
@@ -136,7 +146,8 @@
       emergencyContact = #{emergencycontact,jdbcType=VARCHAR},
       emergencyPhone = #{emergencyphone,jdbcType=VARCHAR},
       registrationTime = #{registrationtime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=VARCHAR}
+      status = #{status,jdbcType=VARCHAR},
+       remark = #{remark,jdbcType=VARCHAR}
     where carLicence = #{carlicence,jdbcType=VARCHAR}
   </update>
 </mapper>
