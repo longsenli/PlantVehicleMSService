@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tnpy.plantvehiclems.mapper.mysql.CarDriveRecordMapper">
+  <resultMap id="BaseResultMap" type="com.tnpy.plantvehiclems.model.mysql.CarDriveRecord">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="carID" jdbcType="VARCHAR" property="carid" />
+    <result column="comeTime" jdbcType="TIMESTAMP" property="cometime" />
+    <result column="goTime" jdbcType="TIMESTAMP" property="gotime" />
+    <result column="comeRecorder" jdbcType="VARCHAR" property="comerecorder" />
+    <result column="comeRecorderID" jdbcType="VARCHAR" property="comerecorderid" />
+    <result column="goRecorder" jdbcType="VARCHAR" property="gorecorder" />
+    <result column="goRecorderID" jdbcType="VARCHAR" property="gorecorderid" />
+    <result column="extd1" jdbcType="VARCHAR" property="extd1" />
+    <result column="extd2" jdbcType="VARCHAR" property="extd2" />
+    <result column="extd3" jdbcType="VARCHAR" property="extd3" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, carID, comeTime, goTime, comeRecorder, comeRecorderID, goRecorder, goRecorderID, 
+    extd1, extd2, extd3, remark, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_cardriverecord
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_cardriverecord
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tnpy.plantvehiclems.model.mysql.CarDriveRecord">
+    insert into tb_cardriverecord (id, carID, comeTime, 
+      goTime, comeRecorder, comeRecorderID, 
+      goRecorder, goRecorderID, extd1, 
+      extd2, extd3, remark, 
+      status)
+    values (#{id,jdbcType=VARCHAR}, #{carid,jdbcType=VARCHAR}, #{cometime,jdbcType=TIMESTAMP}, 
+      #{gotime,jdbcType=TIMESTAMP}, #{comerecorder,jdbcType=VARCHAR}, #{comerecorderid,jdbcType=VARCHAR}, 
+      #{gorecorder,jdbcType=VARCHAR}, #{gorecorderid,jdbcType=VARCHAR}, #{extd1,jdbcType=VARCHAR}, 
+      #{extd2,jdbcType=VARCHAR}, #{extd3,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tnpy.plantvehiclems.model.mysql.CarDriveRecord">
+    insert into tb_cardriverecord
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="carid != null">
+        carID,
+      </if>
+      <if test="cometime != null">
+        comeTime,
+      </if>
+      <if test="gotime != null">
+        goTime,
+      </if>
+      <if test="comerecorder != null">
+        comeRecorder,
+      </if>
+      <if test="comerecorderid != null">
+        comeRecorderID,
+      </if>
+      <if test="gorecorder != null">
+        goRecorder,
+      </if>
+      <if test="gorecorderid != null">
+        goRecorderID,
+      </if>
+      <if test="extd1 != null">
+        extd1,
+      </if>
+      <if test="extd2 != null">
+        extd2,
+      </if>
+      <if test="extd3 != null">
+        extd3,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="carid != null">
+        #{carid,jdbcType=VARCHAR},
+      </if>
+      <if test="cometime != null">
+        #{cometime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gotime != null">
+        #{gotime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comerecorder != null">
+        #{comerecorder,jdbcType=VARCHAR},
+      </if>
+      <if test="comerecorderid != null">
+        #{comerecorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="gorecorder != null">
+        #{gorecorder,jdbcType=VARCHAR},
+      </if>
+      <if test="gorecorderid != null">
+        #{gorecorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="extd1 != null">
+        #{extd1,jdbcType=VARCHAR},
+      </if>
+      <if test="extd2 != null">
+        #{extd2,jdbcType=VARCHAR},
+      </if>
+      <if test="extd3 != null">
+        #{extd3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tnpy.plantvehiclems.model.mysql.CarDriveRecord">
+    update tb_cardriverecord
+    <set>
+      <if test="carid != null">
+        carID = #{carid,jdbcType=VARCHAR},
+      </if>
+      <if test="cometime != null">
+        comeTime = #{cometime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gotime != null">
+        goTime = #{gotime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comerecorder != null">
+        comeRecorder = #{comerecorder,jdbcType=VARCHAR},
+      </if>
+      <if test="comerecorderid != null">
+        comeRecorderID = #{comerecorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="gorecorder != null">
+        goRecorder = #{gorecorder,jdbcType=VARCHAR},
+      </if>
+      <if test="gorecorderid != null">
+        goRecorderID = #{gorecorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="extd1 != null">
+        extd1 = #{extd1,jdbcType=VARCHAR},
+      </if>
+      <if test="extd2 != null">
+        extd2 = #{extd2,jdbcType=VARCHAR},
+      </if>
+      <if test="extd3 != null">
+        extd3 = #{extd3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tnpy.plantvehiclems.model.mysql.CarDriveRecord">
+    update tb_cardriverecord
+    set carID = #{carid,jdbcType=VARCHAR},
+      comeTime = #{cometime,jdbcType=TIMESTAMP},
+      goTime = #{gotime,jdbcType=TIMESTAMP},
+      comeRecorder = #{comerecorder,jdbcType=VARCHAR},
+      comeRecorderID = #{comerecorderid,jdbcType=VARCHAR},
+      goRecorder = #{gorecorder,jdbcType=VARCHAR},
+      goRecorderID = #{gorecorderid,jdbcType=VARCHAR},
+      extd1 = #{extd1,jdbcType=VARCHAR},
+      extd2 = #{extd2,jdbcType=VARCHAR},
+      extd3 = #{extd3,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

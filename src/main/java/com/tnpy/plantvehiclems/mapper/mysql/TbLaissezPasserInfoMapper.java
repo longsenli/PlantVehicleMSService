@@ -2,6 +2,7 @@ package com.tnpy.plantvehiclems.mapper.mysql;
 
 import java.util.List;
 
+import com.tnpy.plantvehiclems.model.mysql.TbCarInfo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -30,3 +31,4 @@ public interface TbLaissezPasserInfoMapper {
     @Update("update tb_laissezpasserinfo set status = '-1' where id = #{id}")
     int deleteByChangeStatus(String id);
 }
+

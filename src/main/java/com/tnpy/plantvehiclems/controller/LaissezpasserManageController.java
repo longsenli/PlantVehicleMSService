@@ -4,10 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.tnpy.common.Enum.StatusEnum;
 import com.tnpy.common.utils.web.TNPYResponse;
-import com.tnpy.plantvehiclems.model.mysql.TbCarInfo;
 import com.tnpy.plantvehiclems.model.mysql.TbLaissezPasserInfo;
 import com.tnpy.plantvehiclems.service.ILaissezpassersManageService;
-import com.tnpy.plantvehiclems.service.IVehicleManageService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

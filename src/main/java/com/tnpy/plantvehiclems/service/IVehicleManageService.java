@@ -1,8 +1,10 @@
 package com.tnpy.plantvehiclems.service;
 
-import java.util.List;
-
 import com.tnpy.plantvehiclems.model.mysql.TbCarInfo;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
+import java.util.Map;
 
 public interface IVehicleManageService {
 	int insert(TbCarInfo tbcarinfo);
@@ -16,4 +18,7 @@ public interface IVehicleManageService {
 	int updateByPrimaryKeySelective(TbCarInfo tbcarinfo);
 
 	int updateByPrimaryKey(TbCarInfo tbcarinfo);
+
+
+
 }

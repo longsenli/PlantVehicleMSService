@@ -2,11 +2,11 @@ package com.tnpy.plantvehiclems.service.impl;
 
 import java.util.List;
 
+import com.tnpy.plantvehiclems.mapper.mysql.TbCarInfoMapper;
+import com.tnpy.plantvehiclems.model.mysql.TbCarInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tnpy.plantvehiclems.mapper.mysql.TbCarInfoMapper;
-import com.tnpy.plantvehiclems.model.mysql.TbCarInfo;
 import com.tnpy.plantvehiclems.service.IVehicleManageService;
 
 @Service("vehicleRegisterService")
@@ -50,5 +50,7 @@ public class VehicleManageServiceImpl implements  IVehicleManageService{
 		// TODO Auto-generated method stub
 		return tbCarInfoMapper.updateByPrimaryKey(tbcarinfo);
 	}
+
+
 
 }

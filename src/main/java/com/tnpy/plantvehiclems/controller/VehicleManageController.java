@@ -4,13 +4,18 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.tnpy.common.Enum.StatusEnum;
 import com.tnpy.common.utils.web.TNPYResponse;
+import com.tnpy.plantvehiclems.mapper.mysql.TbCarInfoMapper;
 import com.tnpy.plantvehiclems.model.mysql.TbCarInfo;
 import com.tnpy.plantvehiclems.service.IVehicleManageService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -20,14 +25,22 @@ public class VehicleManageController {
 
 	@Resource
 	IVehicleManageService vehicleRegisterService;
-	
+
+	@Autowired
+	TbCarInfoMapper tbCarInfoMapper;
 	@RequestMapping(value = "/vehicleRegister")
-	public TNPYResponse vehicleRegister(TbCarInfo tbcar ) {
+	public TNPYResponse vehicleRegister(@RequestBody String jsonStr  ) {
+
 		TNPYResponse response = new TNPYResponse();
 		try
 		{
+			TbCarInfo tbcar=(TbCarInfo) JSONObject.toJavaObject(JSONObject.parseObject(jsonStr), TbCarInfo.class);
+
 			TbCarInfo existstbcar = vehicleRegisterService.selectByPrimaryKey(tbcar.getCarlicence());
+
 			if(existstbcar == null) {
+				tbcar.setRegistrationtime(new Date());
+				tbcar.setStatus("1");
 				vehicleRegisterService.insert(tbcar);
 				response.setStatus(StatusEnum.ResponseStatus.Success.getIndex());
 				response.setMessage("登记注册成功");
@@ -83,8 +96,8 @@ public class VehicleManageController {
 			{
 				filter = " and " + columnName + " like '%" + selectValue + "%' ";
 			}
-			List<TbCarInfo> existstbcar = vehicleRegisterService.listAll(filter);
-			response.setData(JSONObject.toJSONString(existstbcar, SerializerFeature.WriteMapNullValue).toString());
+			List<Map<Object, Object>> mapList  = tbCarInfoMapper.getCarInfoList(filter);
+			response.setData(JSONObject.toJSON(mapList).toString());
 			response.setStatus(StatusEnum.ResponseStatus.Success.getIndex());
 			response.setMessage("返回查询结果");
 			return  response;
@@ -102,7 +115,7 @@ public class VehicleManageController {
 		TNPYResponse response = new TNPYResponse();
 		try
 		{
-			int rs = vehicleRegisterService.deleteByPrimaryKey(ids);
+			int rs = tbCarInfoMapper.deleteByChangeStatus(ids);
 			response.setStatus(StatusEnum.ResponseStatus.Success.getIndex());
 			response.setMessage("删除成功");
 			return  response;
