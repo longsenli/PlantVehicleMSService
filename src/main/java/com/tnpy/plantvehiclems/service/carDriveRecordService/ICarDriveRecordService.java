@@ -20,5 +20,5 @@ public interface ICarDriveRecordService {
     public TNPYResponse getCarDriveRecord( String id,String startTime,String endTime) ;
     public TNPYResponse addCarDriveRecord(String carID,String recorderID,String recorderName,String driveType );
     public TNPYResponse deleteCarDriveRecord(String id);
-
+    public TNPYResponse getCarStayInPlant();
 }

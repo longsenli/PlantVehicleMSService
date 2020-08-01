@@ -54,4 +54,10 @@ public class CarDriveRecordController {
     }
 
 
+    @RequestMapping(value = "/getCarStayInPlant")
+    public TNPYResponse getCarStayInPlant() {
+        return  carDriveRecordService.getCarStayInPlant();
+    }
+
+
 }

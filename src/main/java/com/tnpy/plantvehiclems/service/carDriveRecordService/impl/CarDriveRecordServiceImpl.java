@@ -40,11 +40,30 @@ public class CarDriveRecordServiceImpl implements ICarDriveRecordService {
         return null;
     }
 
+    public TNPYResponse getCarStayInPlant()
+    {
+        TNPYResponse result = new TNPYResponse();
+        try {
+
+            List<Map<Object, Object>> mapList = carDriveRecordMapper.getCarStayInPlant();
+            result.setStatus(1);
+            result.setData(JSONObject.toJSON(mapList).toString());
+            return result;
+        } catch (Exception ex) {
+            result.setMessage("查询出错！" + ex.getMessage());
+            return result;
+        }
+    }
     @Override
     public TNPYResponse getCarDriveRecord(String id, String startTime, String endTime) {
         TNPYResponse result = new TNPYResponse();
         try {
-            List<Map<Object, Object>> mapList = carDriveRecordMapper.selectRecordByFilter(id, startTime, endTime);
+            String carFilter ="";
+            if(!"-1".equals(id))
+            {
+                carFilter = " and carID = '" + id + "' ";
+            }
+            List<Map<Object, Object>> mapList = carDriveRecordMapper.selectRecordByFilter(carFilter, startTime, endTime);
             result.setStatus(1);
             result.setData(JSONObject.toJSON(mapList).toString());
             return result;
@@ -77,6 +96,7 @@ public class CarDriveRecordServiceImpl implements ICarDriveRecordService {
             if ("come".equals(driveType)) {
                 List<Map<Object, Object>> recordList = carDriveRecordMapper.judgeRepetitionComeRecord(carID, timeCompare);
                 if (recordList.size() < 1) {
+                    carDriveRecordMapper.updateCarInOutStats(carID);
                     CarDriveRecord carDriveRecord = new CarDriveRecord();
                     carDriveRecord.setId(UUID.randomUUID().toString().replace("-", "").toLowerCase());
                     carDriveRecord.setCarid(carID);
@@ -85,11 +105,13 @@ public class CarDriveRecordServiceImpl implements ICarDriveRecordService {
                     carDriveRecord.setComerecorderid(recorderID);
                     carDriveRecord.setStatus("1");
                     carDriveRecordMapper.insert(carDriveRecord);
+
                     result.setStatus(1);
                     result.setMessage("车辆入厂！ " + carID + "   " + dateFormat2.format(new Date()));
                     return result;
 
                 }
+
                 result.setMessage("该电动车已经扫码！" + recordList.get(0).get("id") + "  " + recordList.get(0).get("comeTime"));
                 return result;
             } else if ("go".equals(driveType)) {
@@ -99,9 +121,12 @@ public class CarDriveRecordServiceImpl implements ICarDriveRecordService {
                     carDriveRecord.setId(UUID.randomUUID().toString().replace("-", "").toLowerCase());
                     carDriveRecord.setCarid(carID);
                     carDriveRecord.setGotime(new Date());
+                    carDriveRecord.setCometime(new Date());
+                    carDriveRecord.setComerecorder(recorderName);
+                    carDriveRecord.setComerecorderid(recorderID);
                     carDriveRecord.setGorecorder(recorderName);
                     carDriveRecord.setGorecorderid(recorderID);
-                    carDriveRecord.setStatus("1");
+                    carDriveRecord.setStatus("4");
                     carDriveRecordMapper.insert(carDriveRecord);
                     result.setStatus(1);
                     result.setMessage("车辆出厂，但未找到入厂记录！ " + carID + "   " + dateFormat2.format(new Date()));
@@ -110,10 +135,10 @@ public class CarDriveRecordServiceImpl implements ICarDriveRecordService {
                     if (StringUtils.isEmpty(carComeRecord.get(0).get("goTime"))) {
                         CarDriveRecord carDriveRecord = new CarDriveRecord();
                         carDriveRecord.setId(carComeRecord.get(0).get("id").toString());
-
                         carDriveRecord.setGotime(new Date());
                         carDriveRecord.setGorecorder(recorderName);
                         carDriveRecord.setGorecorderid(recorderID);
+                        carDriveRecord.setStatus("2");
                         carDriveRecordMapper.updateByPrimaryKeySelective(carDriveRecord);
                         result.setStatus(1);
                         result.setMessage("车辆出厂!入厂时间： " + carComeRecord.get(0).get("comeTime") + "  \r\n" + carID + "  出厂时间： " + dateFormat2.format(new Date()));
@@ -132,9 +157,12 @@ public class CarDriveRecordServiceImpl implements ICarDriveRecordService {
                         carDriveRecord.setId(UUID.randomUUID().toString().replace("-", "").toLowerCase());
                         carDriveRecord.setCarid(carID);
                         carDriveRecord.setGotime(new Date());
+                        carDriveRecord.setCometime(new Date());
+                        carDriveRecord.setComerecorder(recorderName);
+                        carDriveRecord.setComerecorderid(recorderID);
                         carDriveRecord.setGorecorder(recorderName);
                         carDriveRecord.setGorecorderid(recorderID);
-                        carDriveRecord.setStatus("1");
+                        carDriveRecord.setStatus("4");
                         carDriveRecordMapper.insert(carDriveRecord);
                         result.setStatus(1);
                         result.setMessage("车辆出厂，但未找到入厂记录！ " + carID + "   " + dateFormat2.format(new Date()));
