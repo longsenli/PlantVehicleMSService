@@ -37,9 +37,14 @@ public class DBOperator {
               //  Class.forName(JDBC_DRIVER);
                 conn = DriverManager.getConnection(DB_URL, USER, PASS);
             }
+            if (conn.isClosed()) {
+                // 注册 JDBC 驱动
+                //  Class.forName(JDBC_DRIVER);
+                conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            }
             return conn;
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage() + " getMysqlConnection Error");
             return null;
         }
     }
@@ -49,6 +54,13 @@ public class DBOperator {
             if (conn == null) {
                 // 注册 JDBC 驱动
               //  Class.forName(JDBC_DRIVER);
+                conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            }
+
+            if (conn.isClosed()) {
+                // 注册 JDBC 驱动
+                //  Class.forName(JDBC_DRIVER);
+                System.out.println("close");
                 conn = DriverManager.getConnection(DB_URL, USER, PASS);
             }
             Statement stmt = conn.createStatement();
@@ -65,7 +77,7 @@ public class DBOperator {
             }
             return MapList;
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage()  + " selectData Error");
             return new ArrayList<>();
         }
     }
@@ -77,11 +89,18 @@ public class DBOperator {
                // Class.forName(JDBC_DRIVER);
                 conn = DriverManager.getConnection(DB_URL, USER, PASS);
             }
+
+            if (conn.isClosed()) {
+                // 注册 JDBC 驱动
+                //  Class.forName(JDBC_DRIVER);
+                System.out.println("close");
+                conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            }
             Statement stmt = conn.createStatement();
             int i = stmt.executeUpdate(sqlString);
             return i;
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage()  + " executeSingle Error");
             return 0;
         }
 
@@ -92,6 +111,13 @@ public class DBOperator {
             if (conn == null) {
                 // 注册 JDBC 驱动
                 // Class.forName(JDBC_DRIVER);
+                conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            }
+
+            if (conn.isClosed()) {
+                // 注册 JDBC 驱动
+                //  Class.forName(JDBC_DRIVER);
+                System.out.println("close");
                 conn = DriverManager.getConnection(DB_URL, USER, PASS);
             }
             Statement stmt = conn.createStatement();
@@ -110,7 +136,7 @@ public class DBOperator {
             }
             return numberSum;
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage()  + " excuteBatch Error");
             return 0;
         }
 

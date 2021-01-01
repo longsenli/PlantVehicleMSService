@@ -17,7 +17,7 @@ import java.util.*;
 @Component //使spring管理
 @EnableScheduling //定时任务注解
 public class ZXNHJCReportTimer {
-    @Scheduled(cron = "0 36 5 * * ?")
+    @Scheduled(cron = "0 37 7 * * ?")
     public void automaticOrderStatus() {
         try {
 

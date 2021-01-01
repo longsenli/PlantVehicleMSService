@@ -60,11 +60,13 @@ public class ZXNHJCServiceImpl implements IZXNHJCService {
         TNPYResponse result = new TNPYResponse();
         try {
 
-            String sqlString = " select id,name from green_collectitemconfig ";
+            String sqlString = " select id,name,statType from green_collectitemconfig ";
             List<Map<Object, Object>> mapList = DBOperator.selectData(sqlString);
             HashMap<String,String> hashMap = new HashMap<>() ;
+            HashMap<String,String> hashType = new HashMap<>() ;
             for(int i =0 ;i<mapList.size();i++){
                 hashMap.put(mapList.get(i).get("name").toString(),mapList.get(i).get("id").toString());
+                hashType.put(mapList.get(i).get("name").toString(),mapList.get(i).get("statType").toString());
             }
 
          //   IncomingMaterialDetail incomingMaterialDetail=(IncomingMaterialDetail) JSONObject.toJavaObject(JSONObject.parseObject(jsonString), IncomingMaterialDetail.class);
@@ -81,7 +83,7 @@ public class ZXNHJCServiceImpl implements IZXNHJCService {
 //                        + "','" + zxnhjcBasicRecordList.get(i).getCreate_user() +"',now() ); \r\n ");
                 sqlList.add(" insert into green_handdata (id,corporationCode,dataId,statDate,dataValue,statType,stamp )  values (  REPLACE( uuid(),'-',''),'914109005860634614','"
                         + hashMap.get( zxnhjcBasicRecordList.get(i).getEmsg())
-                        +" ' , '" + zxnhjcBasicRecordList.get(i).getLock_date() + "','" + zxnhjcBasicRecordList.get(i).getSmsg() + "','1',now() ); \r\n ");
+                        +" ' , '" + zxnhjcBasicRecordList.get(i).getLock_date() + "','" + zxnhjcBasicRecordList.get(i).getSmsg() + "','"+ hashType.get( zxnhjcBasicRecordList.get(i).getEmsg())+ "',now() ); \r\n ");
             }
             int count = DBOperator.executeBatchSQL(sqlList);
             result.setStatus(1);
